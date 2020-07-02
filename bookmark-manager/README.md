@@ -23,6 +23,17 @@ git clone https://github.com/Dhara-95/bookmark-manager
 bundle
 ```
 
+To set up the database:
+
+- Connect to 'psql' and create the 'bookmark_manager' and 'bookmark_manager_test' databases
+
+```
+CREATE DATABASE bookmark_manager;
+CREATE DATABASE bookmark_manager_test
+```
+
+To set up the appropriate tables, connect to each database in 'psql' and run the SQL scripts in the 'db/migrations' folder in the given order.
+
 To run the BookManager App run the server in command line first:
 
 ```
@@ -36,10 +47,14 @@ localhost:9292            (to view the homepage)
 localhost:9292/bookmarks  (to view the list of bookmarks)
 ```
 
-To use psql:
+To run the tests:
 
-1. Connect to psql
-2. Create the database using the psql command CREATE DATABASE bookmark_manager;
-3. Connect to the database using the psql command \c bookmark_manager;
-4. Run the query we have saved in the file 01_create_bookmarks_table.sql
-5. Do the same for a new test database called bookmark_manager_test with a another separate bookmarks table
+```
+rspec
+```
+
+To run linting:
+
+```
+rubocop
+```
