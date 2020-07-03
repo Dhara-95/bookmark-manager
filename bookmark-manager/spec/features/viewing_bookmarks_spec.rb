@@ -1,20 +1,24 @@
 feature 'Viewing bookmarks' do
-  scenario 'visiting the homepage page' do
-    visit('/')
-    expect(page).to have_content("Bookmark Manager")
+
+
+  feature 'visiting the homepage' do
+    scenario 'title of app is shown' do
+      visit('/')
+      expect(page).to have_content("Bookmark Manager")
+    end
   end
+  
+  feature 'viewing bookmarks' do
+    scenario 'bookmarks are visible to user' do
+      Bookmark.create(url: "http://www.makersacademy.com")
+      Bookmark.create(url: "http://www.destroyallsoftware.com")
+      Bookmark.create(url: "http://www.google.com")
 
-  scenario 'bookmarks are visible to user' do
-    connection = PG.connect(dbname: 'bookmark_manager_test')
+      visit('/bookmarks')
 
-    connection.exec("INSERT INTO bookmarks VALUES(1, 'http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(2, 'http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks VALUES(3, 'http://www.google.com');")
-
-    visit('/bookmarks')
-
-    expect(page).to have_content("http://www.makersacademy.com")
-    expect(page).to have_content("http://www.destroyallsoftware.com")
-    expect(page).to have_content("http://www.google.com")
+      expect(page).to have_content("http://www.makersacademy.com")
+      expect(page).to have_content("http://www.destroyallsoftware.com")
+      expect(page).to have_content("http://www.google.com")
+    end
   end
 end
